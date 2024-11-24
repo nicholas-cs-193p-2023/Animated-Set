@@ -1,0 +1,2 @@
+Target dependency graph (1 target)
+Target 'Animated Set' in project 'Animated Set' (no dependencies)
