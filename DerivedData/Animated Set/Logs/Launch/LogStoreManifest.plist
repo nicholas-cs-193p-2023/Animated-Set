@@ -6,10 +6,10 @@
 	<integer>11</integer>
 	<key>logs</key>
 	<dict>
-		<key>B56708B0-E9F7-4293-BCB3-4AEBC7968949</key>
+		<key>3AD70FA8-8C31-4EC8-BA28-E2F1FFC8618D</key>
 		<dict>
 			<key>auxiliaryLogUniqueIdentifier</key>
-			<string>794CC280-5389-4501-A54B-3FBCAEC53962</string>
+			<string>16154D20-FF39-4287-946E-FA95DD5553CC</string>
 			<key>auxiliaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
@@ -30,7 +30,7 @@
 			<key>domainType</key>
 			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
 			<key>fileName</key>
-			<string>Run-Animated Set-2024.11.23_17-34-57--0800.xcresult</string>
+			<string>Run-Animated Set-2025.01.10_00-54-07--0800.xcresult</string>
 			<key>hasAuxiliaryLog</key>
 			<true/>
 			<key>hasConsoleLog</key>
@@ -59,13 +59,74 @@
 			<key>signature</key>
 			<string>Run Animated Set</string>
 			<key>timeStartedRecording</key>
-			<real>754104897.81395495</real>
+			<real>758192047.45137095</real>
 			<key>timeStoppedRecording</key>
 			<real>0.0</real>
 			<key>title</key>
 			<string>Run Animated Set</string>
 			<key>uniqueIdentifier</key>
-			<string>B56708B0-E9F7-4293-BCB3-4AEBC7968949</string>
+			<string>3AD70FA8-8C31-4EC8-BA28-E2F1FFC8618D</string>
+		</dict>
+		<key>E3D6B5BA-FE5D-456E-A809-1597E6E495F2</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>F17EC144-913E-4C97-B94E-EA2301A70605</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-Animated Set-2024.12.29_15-35-38--0800.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>0</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Animated Set project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Animated Set</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run Animated Set</string>
+			<key>timeStartedRecording</key>
+			<real>757208138.19247794</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run Animated Set</string>
+			<key>uniqueIdentifier</key>
+			<string>E3D6B5BA-FE5D-456E-A809-1597E6E495F2</string>
 		</dict>
 	</dict>
 </dict>

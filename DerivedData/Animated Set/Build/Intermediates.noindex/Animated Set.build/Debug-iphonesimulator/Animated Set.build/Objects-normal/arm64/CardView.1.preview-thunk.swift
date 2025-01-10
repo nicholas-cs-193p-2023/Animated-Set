@@ -14,31 +14,47 @@ import func SwiftUI.__designTimeBoolean
 import SwiftUI
 
 struct CardView: View {
+    init(card: Card, isFaceUp: Bool, selectionState: CardSelectionState? = nil) {
+        self.card = card
+        self.isFaceUp = isFaceUp
+        self.selectionState = selectionState
+    }
+    
     var card: Card
-    var fillColor: Color?
+    var isFaceUp: Bool
+
+    var selectionState: CardSelectionState?
+    
+//    var rotation: Double = 0
+//    var animatableData: Double {
+//        get { return rotation }
+//        set { rotation = newValue }
+//    }
     
     var body: some View {
-        let rectangle = RoundedRectangle(cornerRadius: Constants.cornerRadius)
-        GeometryReader { geometry in
-            ZStack {
-                rectangle.fill(.white)
-                if let fillColor = fillColor {
-                    let opaqueFillColor = fillColor.opacity(Constants.opacity)
-                    rectangle.fill(opaqueFillColor)
-                    rectangle.strokeBorder(fillColor, lineWidth: Constants.lineWidth)
-                } else {
-                    rectangle.strokeBorder(lineWidth: Constants.lineWidth)
-                }
-                VStack {
-                    ForEach(__designTimeInteger("#11686_0", fallback: 0)..<shapeCount, id: \.self) { index in
-                        shapeWithColor.aspectRatio(__designTimeFloat("#11686_1", fallback: 2.0), contentMode: .fit)
-                    }
-                }.padding(Constants.shapePadding)
+        Group {
+            if isFaceUp {
+                faceUpCard
+            } else {
+                faceDownCard
             }
-        }
+        }.cardify(fillColor: Constants.backgroundColors[selectionState])
+            // .rotation3DEffect(.degrees(rotation), axis: (x: 0, y: 1, z: 0))
+    }
+    
+    var faceUpCard: some View {
+        VStack {
+            ForEach(__designTimeInteger("#6125_0", fallback: 0)..<shapeCount, id: \.self) { index in
+                shapeWithColor.aspectRatio(__designTimeFloat("#6125_1", fallback: 2.0), contentMode: .fit)
+            }
+        }.padding(Constants.shapePadding)
+    }
+
+    var faceDownCard: some View {
+        CoolS().stroke(lineWidth: Constants.coolSStrokeWidth)
     }
         
-    @ViewBuilder 
+    @ViewBuilder
     var shapeWithColor: some View {
         let features = card.features
         let shape = shape(ofTrilean: features.first)
@@ -46,7 +62,7 @@ struct CardView: View {
         if features.third == .first {
             shape.stroke(color, lineWidth: Constants.strokeWidth)
         } else {
-            let opacity = features.third == .second ? __designTimeFloat("#11686_2", fallback: 0.5) : __designTimeFloat("#11686_3", fallback: 1.0)
+            let opacity = features.third == .second ? __designTimeFloat("#6125_2", fallback: 0.5) : __designTimeFloat("#6125_3", fallback: 1.0)
             shape.fill(color.opacity(opacity))
         }
     }
@@ -56,7 +72,7 @@ struct CardView: View {
     }
     
     private func color(ofTrilean trilean: Trilean) -> Color {
-        [Color.red, Color.green, Color.blue][Int(trilean.rawValue) - __designTimeInteger("#11686_4", fallback: 1)]
+        [Color.red, Color.green, Color.blue][Int(trilean.rawValue) - __designTimeInteger("#6125_4", fallback: 1)]
     }
     
     private func count(ofTrilean trilean: Trilean) -> Int {
@@ -64,7 +80,7 @@ struct CardView: View {
     }
     
     private func opacity(ofTrilean trilean: Trilean) -> CGFloat {
-        [__designTimeFloat("#11686_5", fallback: 1.0), __designTimeFloat("#11686_6", fallback: 0.5), __designTimeFloat("#11686_7", fallback: 1.0)][Int(trilean.rawValue) - __designTimeInteger("#11686_8", fallback: 1)]
+        [__designTimeFloat("#6125_5", fallback: 1.0), __designTimeFloat("#6125_6", fallback: 0.5), __designTimeFloat("#6125_7", fallback: 1.0)][Int(trilean.rawValue) - __designTimeInteger("#6125_8", fallback: 1)]
     }
     
     private func shape(ofTrilean trilean: Trilean) -> some Shape {
@@ -72,11 +88,10 @@ struct CardView: View {
     }
     
     private struct Constants {
-        static let cornerRadius = 16.0
-        static let lineWidth = 2.0
+        static let coolSStrokeWidth = 3.0
         static let strokeWidth = 2.0
         static let shapePadding = 10.0
-        static let opacity = 0.05
+        static let backgroundColors: [CardSelectionState?: Color] = [.selected: Color(hex: 0xedc400), .matched: Color(hex: 0x71b379), .mismatched: Color(hex: 0xb25690)]
     }
 }
 
@@ -96,10 +111,11 @@ private struct AnyShape: Shape {
 
 
 #Preview {
-    let fillColor = Color(hex: 0x71b379)
+    let selectionState = CardSelectionState.matched
     
-    CardView(card: Card(id: __designTimeInteger("#11686_9", fallback: 0b11011111)), fillColor: fillColor)
-        .aspectRatio(CGFloat(__designTimeFloat("#11686_10", fallback: 2.5))/__designTimeFloat("#11686_11", fallback: 3.5), contentMode: .fit)
+    CardView(card: Card(id: __designTimeInteger("#6125_9", fallback: 0b11011111)), isFaceUp: __designTimeBoolean("#6125_10", fallback: false), selectionState: selectionState)
+        .aspectRatio(CGFloat(__designTimeFloat("#6125_11", fallback: 2.5))/__designTimeFloat("#6125_12", fallback: 3.5), contentMode: .fit)
         .padding()
         // .background(fillColor)
 }
+

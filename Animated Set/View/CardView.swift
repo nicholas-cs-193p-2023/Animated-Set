@@ -8,28 +8,44 @@
 import SwiftUI
 
 struct CardView: View {
+    init(card: Card, isFaceUp: Bool, selectionState: CardSelectionState? = nil) {
+        self.card = card
+        self.isFaceUp = isFaceUp
+        self.selectionState = selectionState
+    }
+    
     var card: Card
-    var fillColor: Color?
+    var isFaceUp: Bool
+
+    var selectionState: CardSelectionState?
+    
+//    var rotation: Double = 0
+//    var animatableData: Double {
+//        get { return rotation }
+//        set { rotation = newValue }
+//    }
     
     var body: some View {
-        let rectangle = RoundedRectangle(cornerRadius: Constants.cornerRadius)
-        GeometryReader { geometry in
-            ZStack {
-                rectangle.fill(.white)
-                if let fillColor = fillColor {
-                    let opaqueFillColor = fillColor.opacity(Constants.opacity)
-                    rectangle.fill(opaqueFillColor)
-                    rectangle.strokeBorder(fillColor, lineWidth: Constants.lineWidth)
-                } else {
-                    rectangle.strokeBorder(lineWidth: Constants.lineWidth)
-                }
-                VStack {
-                    ForEach(0..<shapeCount, id: \.self) { index in
-                        shapeWithColor.aspectRatio(2.0, contentMode: .fit)
-                    }
-                }.padding(Constants.shapePadding)
+        Group {
+            if isFaceUp {
+                faceUpCard
+            } else {
+                faceDownCard
             }
-        }
+        }.cardify(fillColor: Constants.backgroundColors[selectionState])
+            // .rotation3DEffect(.degrees(rotation), axis: (x: 0, y: 1, z: 0))
+    }
+    
+    var faceUpCard: some View {
+        VStack {
+            ForEach(0..<shapeCount, id: \.self) { index in
+                shapeWithColor.aspectRatio(2.0, contentMode: .fit)
+            }
+        }.padding(Constants.shapePadding)
+    }
+
+    var faceDownCard: some View {
+        CoolS().stroke(lineWidth: Constants.coolSStrokeWidth)
     }
         
     @ViewBuilder
@@ -66,11 +82,10 @@ struct CardView: View {
     }
     
     private struct Constants {
-        static let cornerRadius = 16.0
-        static let lineWidth = 2.0
+        static let coolSStrokeWidth = 3.0
         static let strokeWidth = 2.0
         static let shapePadding = 10.0
-        static let opacity = 0.05
+        static let backgroundColors: [CardSelectionState?: Color] = [.selected: Color(hex: 0xedc400), .matched: Color(hex: 0x71b379), .mismatched: Color(hex: 0xb25690)]
     }
 }
 
@@ -90,9 +105,9 @@ private struct AnyShape: Shape {
 
 
 #Preview {
-    let fillColor = Color(hex: 0x71b379)
+    let selectionState = CardSelectionState.matched
     
-    CardView(card: Card(id: 0b11011111), fillColor: fillColor)
+    CardView(card: Card(id: 0b11011111), isFaceUp: false, selectionState: selectionState)
         .aspectRatio(CGFloat(2.5)/3.5, contentMode: .fit)
         .padding()
         // .background(fillColor)

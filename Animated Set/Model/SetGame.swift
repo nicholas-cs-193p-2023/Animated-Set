@@ -23,7 +23,7 @@ struct SetGame {
     private let initialFieldCount = 12
     private(set) var field: [Card] = []
     private(set) var deck: [Card]
-    private var grave: [Card] = []
+    private(set) var discardPile: [Card] = []
     
     private var chosenCards: Set<Card> = []
     
@@ -37,7 +37,7 @@ struct SetGame {
     
     mutating func startNewGame() {
         field.removeAll()
-        grave.removeAll()
+        discardPile.removeAll()
         deck = SetGame.generateDeck().shuffled()
         for _ in 0..<initialFieldCount {
             field.append(deck.removeFirst())
@@ -56,7 +56,7 @@ struct SetGame {
         
         if chosenCardsMatch() {
             let cardPreviouslySelected = chosenCards.contains(card)
-            replaceMatchingCards()
+            removeMatchingCards()
             if !cardPreviouslySelected {
                 chosenCards.insert(card)
             }
@@ -72,35 +72,27 @@ struct SetGame {
             return
         }
         if chosenCardsMatch() {
-            replaceMatchingCards()
-        } else {
-            for _ in 0..<3 {
-                field.append(deck.removeFirst())
-            }
+            removeMatchingCards()
+        }
+        for _ in 0..<3 {
+            field.append(deck.removeFirst())
         }
     }
     
-    private mutating func replaceMatchingCards() {
+    private mutating func removeMatchingCards() {
         var chosenCardIndices: [Int] = []
-        let chosenCardList = Array(chosenCards)
         for chosenCard in chosenCards {
             guard let cardIndex = field.firstIndex(where: {$0.id == chosenCard.id}) else { return }
             chosenCardIndices.append(cardIndex)
         }
-                        
-        if deck.count >= 3 {
-            for cardIndex in chosenCardIndices {
-                field[cardIndex] = deck.removeFirst()
-            }
-        } else {
-            chosenCardIndices.sort { $0 > $1 }
-            for cardIndex in chosenCardIndices {
-                field.remove(at: cardIndex)
-            }
+        
+        chosenCardIndices.sort { $0 > $1 }
+        for cardIndex in chosenCardIndices {
+            field.remove(at: cardIndex)
         }
-            
+        
+        discardPile += Array(chosenCards)
         chosenCards.removeAll()
-        grave += chosenCardList
     }
     
     func chosenCardsMatch() -> Bool {

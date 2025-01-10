@@ -18,8 +18,12 @@ class SetGameViewModel: ObservableObject {
         game.field
     }
     
-    var deckIsEmpty: Bool {
-        game.deck.isEmpty
+    var deck: [Card] {
+        game.deck
+    }
+    
+    var discardPile: [Card] {
+        game.discardPile
     }
     
     func selectionState(_ card: Card) -> CardSelectionState? {
