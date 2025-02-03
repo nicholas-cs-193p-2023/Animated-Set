@@ -8,10 +8,22 @@
 import SwiftUI
 
 struct SetGameView: View {
+    init(viewModel: SetGameViewModel) {
+        self.viewModel = viewModel
+        self.cardsInDeck = viewModel.deck
+        self.cardsInField = viewModel.cards
+        self.cardsInDiscardPile = []
+    }
+    
     @ObservedObject var viewModel: SetGameViewModel
+    @State private var cardsInDeck: [Card]
+    @State private var cardsInField: [Card]
+    @State private var cardsInDiscardPile: [Card]
     
     @Namespace private var cardDealingNamespace
     @Namespace private var cardRemovalNamespace
+    
+    private var rotationAnimation = Animation.linear(duration: 3)
     
     var body: some View {
         cards
@@ -19,10 +31,16 @@ struct SetGameView: View {
     }
     
     var cards: some View {
-        AspectVGrid(viewModel.cards, aspectRatio: Constants.aspectRatio, minimumGridItemWidth: Constants.minimumGridItemWidth) { card in
+        AspectVGrid(cardsInField, aspectRatio: Constants.aspectRatio, minimumGridItemWidth: Constants.minimumGridItemWidth) { card in
             mainGridItemCardView(card)
         }
         .padding()
+        .onChange(of: viewModel.cards) {
+            withAnimation(rotationAnimation) {
+                cardsInField = viewModel.cards
+                cardsInDeck = viewModel.deck
+            }
+        }
     }
     
     @ViewBuilder
@@ -69,7 +87,7 @@ struct SetGameView: View {
     
     var discardPile: some View {
         ZStack {
-            ForEach(viewModel.discardPile) { card in
+            ForEach(cardsInDiscardPile) { card in
                 CardView(card: card, isFaceUp: true)
                     .aspectRatio(Constants.aspectRatio, contentMode: .fit)
                     .frame(height: Constants.deckHeight)
@@ -81,7 +99,7 @@ struct SetGameView: View {
     
     var newGameButton: some View {
         bottomButton("New Game") {
-            withAnimation(.linear(duration: 3)) {
+            withAnimation(rotationAnimation) {
                 viewModel.startNewGame()
             }
         }
@@ -89,7 +107,7 @@ struct SetGameView: View {
     
     var deck: some View {
         ZStack {
-            ForEach(viewModel.deck) { card in
+            ForEach(cardsInDeck) { card in
                 CardView(card: card, isFaceUp: false)
                     .aspectRatio(Constants.aspectRatio, contentMode: .fit)
                     .frame(height: Constants.deckHeight)
@@ -147,12 +165,11 @@ struct FlipModifier: ViewModifier, Animatable {
     func body(content: Content) -> some View {
         let showBody = shouldShowBody
         content.opacity(showBody ? 1 : 0)
-            .rotation3DEffect(.degrees(rotation), axis: (x: 0, y: 1, z: 0))
+            .rotation3DEffect(.degrees(rotation), axis: (x: 0, y: 1, z: 0), perspective: 0)
     }
     
     var shouldShowBody: Bool {
-        print("isFaceUp: \(isFaceUp), rotation: \(rotation)")
-        return isFaceUp ? (rotation > 90) : (rotation < 90)
+        isFaceUp ? (rotation > 90) : (rotation < 90)
     }
 }
 

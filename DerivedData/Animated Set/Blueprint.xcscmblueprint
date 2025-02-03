@@ -1,0 +1,23 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0E78BAF083C1238A28928B599EF123D7DA99BBF2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0E78BAF083C1238A28928B599EF123D7DA99BBF2" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "B8B8C518-F110-4856-8109-FC75EE9DF085",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0E78BAF083C1238A28928B599EF123D7DA99BBF2" : "Animated%20Set\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Animated Set",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Animated Set.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/nicholas-cs-193p-2023\/Animated-Set.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0E78BAF083C1238A28928B599EF123D7DA99BBF2"
+    }
+  ]
+}

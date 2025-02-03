@@ -36,23 +36,23 @@ private struct SquigglePath {
     }
     
     var curvePoints: [CGPoint] {
-        [CGPoint(x: minX, y: minY + __designTimeFloat("#6482_0", fallback: 0.7) * height),
-         CGPoint(x: minX + __designTimeFloat("#6482_1", fallback: 0.20) * width, y: minY + __designTimeFloat("#6482_2", fallback: 0.10) * height),
-         CGPoint(x: minX + __designTimeFloat("#6482_3", fallback: 0.85) * width, y: minY + __designTimeFloat("#6482_4", fallback: 0.05) * height),
-         CGPoint(x: maxX, y: minY + __designTimeFloat("#6482_5", fallback: 0.40) * height),
-         CGPoint(x: minX + __designTimeFloat("#6482_6", fallback: 0.60) * width, y: maxY - __designTimeFloat("#6482_7", fallback: 0.05) * height),
-         CGPoint(x: minX + __designTimeFloat("#6482_8", fallback: 0.35) * width, y: height - __designTimeFloat("#6482_9", fallback: 0.10) * height),
-         CGPoint(x: minX + __designTimeFloat("#6482_10", fallback: 0.10) * width, y: height - __designTimeFloat("#6482_11", fallback: 0.05) * height)]
+        [CGPoint(x: minX, y: minY + __designTimeFloat("#11583_0", fallback: 0.7) * height),
+         CGPoint(x: minX + __designTimeFloat("#11583_1", fallback: 0.20) * width, y: minY + __designTimeFloat("#11583_2", fallback: 0.10) * height),
+         CGPoint(x: minX + __designTimeFloat("#11583_3", fallback: 0.85) * width, y: minY + __designTimeFloat("#11583_4", fallback: 0.05) * height),
+         CGPoint(x: maxX, y: minY + __designTimeFloat("#11583_5", fallback: 0.40) * height),
+         CGPoint(x: minX + __designTimeFloat("#11583_6", fallback: 0.60) * width, y: maxY - __designTimeFloat("#11583_7", fallback: 0.05) * height),
+         CGPoint(x: minX + __designTimeFloat("#11583_8", fallback: 0.35) * width, y: height - __designTimeFloat("#11583_9", fallback: 0.10) * height),
+         CGPoint(x: minX + __designTimeFloat("#11583_10", fallback: 0.10) * width, y: height - __designTimeFloat("#11583_11", fallback: 0.05) * height)]
     }
     
     var controlPoints:  [CGPoint] {
         [CGPoint(x: minX, y: minY),
-         CGPoint(x: minX + __designTimeFloat("#6482_12", fallback: 0.60) * width, y: minY + __designTimeFloat("#6482_13", fallback: 0.25) * height),
-         CGPoint(x: maxX, y: minY - __designTimeFloat("#6482_14", fallback: 0.05) * height),
+         CGPoint(x: minX + __designTimeFloat("#11583_12", fallback: 0.60) * width, y: minY + __designTimeFloat("#11583_13", fallback: 0.25) * height),
+         CGPoint(x: maxX, y: minY - __designTimeFloat("#11583_14", fallback: 0.05) * height),
          CGPoint(x: maxX, y: maxY),
-         CGPoint(x: minX + __designTimeFloat("#6482_15", fallback: 0.50) * width, y: maxY - __designTimeFloat("#6482_16", fallback: 0.05) * height),
-         CGPoint(x: minX + __designTimeFloat("#6482_17", fallback: 0.20) * width, y: maxY - __designTimeFloat("#6482_18", fallback: 0.15) * height),
-         CGPoint(x: minX, y: maxY + __designTimeFloat("#6482_19", fallback: 0.10) * height)]
+         CGPoint(x: minX + __designTimeFloat("#11583_15", fallback: 0.50) * width, y: maxY - __designTimeFloat("#11583_16", fallback: 0.05) * height),
+         CGPoint(x: minX + __designTimeFloat("#11583_17", fallback: 0.20) * width, y: maxY - __designTimeFloat("#11583_18", fallback: 0.15) * height),
+         CGPoint(x: minX, y: maxY + __designTimeFloat("#11583_19", fallback: 0.10) * height)]
     }
 }
 
@@ -63,9 +63,9 @@ struct Squiggle: Shape {
         let controlPoints = squigglePath.controlPoints
                 
         var p = Path()
-        p.move(to: curvePoints[__designTimeInteger("#6482_20", fallback: 0)])
-        for i in __designTimeInteger("#6482_21", fallback: 0)..<curvePoints.count {
-            let j = (i + __designTimeInteger("#6482_22", fallback: 1)) % curvePoints.count
+        p.move(to: curvePoints[__designTimeInteger("#11583_20", fallback: 0)])
+        for i in __designTimeInteger("#11583_21", fallback: 0)..<curvePoints.count {
+            let j = (i + __designTimeInteger("#11583_22", fallback: 1)) % curvePoints.count
             p.addQuadCurve(to: curvePoints[j], control: controlPoints[i])
         }
         
@@ -81,7 +81,7 @@ struct CurvePointMarkers: Shape {
         var p = Path()
         let radius = Constants.curvePointRadius
         for point in curvePoints {
-            p.addEllipse(in: CGRect(x: point.x - radius, y: point.y - radius, width: radius * __designTimeFloat("#6482_23", fallback: 2.0), height: radius * __designTimeFloat("#6482_24", fallback: 2.0)))
+            p.addEllipse(in: CGRect(x: point.x - radius, y: point.y - radius, width: radius * __designTimeFloat("#11583_23", fallback: 2.0), height: radius * __designTimeFloat("#11583_24", fallback: 2.0)))
         }
         
         return p
@@ -96,7 +96,7 @@ struct ControlPointMarkers: Shape {
         var p = Path()
         let radius = Constants.controlPointRadius
         for point in controlPoints {
-            p.addEllipse(in: CGRect(x: point.x - radius, y: point.y - radius, width: radius * __designTimeFloat("#6482_25", fallback: 2.0), height: radius * __designTimeFloat("#6482_26", fallback: 2.0)))
+            p.addEllipse(in: CGRect(x: point.x - radius, y: point.y - radius, width: radius * __designTimeFloat("#11583_25", fallback: 2.0), height: radius * __designTimeFloat("#11583_26", fallback: 2.0)))
         }
         
         return p

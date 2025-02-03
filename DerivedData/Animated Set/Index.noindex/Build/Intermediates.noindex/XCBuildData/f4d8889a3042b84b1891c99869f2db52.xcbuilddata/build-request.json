@@ -1,0 +1,48 @@
+{
+  "buildCommand" : {
+    "command" : "prepareForIndexing",
+    "enableIndexBuildArena" : true,
+    "targets" : null
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "c8f953686de2080a52914fdb73164152b4589deeb5c2c5edc68bb22fb03d9b33"
+    }
+  ],
+  "containerPath" : "/Users/nicholasdalba/Developer/Animated Set/Animated Set.xcodeproj",
+  "continueBuildingAfterErrors" : true,
+  "dependencyScope" : "workspace",
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "indexbuild",
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/nicholasdalba/Developer/Animated Set/DerivedData/Animated Set/Index.noindex/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/nicholasdalba/Developer/Animated Set/DerivedData/Animated Set/Index.noindex/Build/Products",
+      "derivedDataPath" : "/Users/nicholasdalba/Developer/Animated Set/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/nicholasdalba/Developer/Animated Set/DerivedData/Animated Set/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/nicholasdalba/Developer/Animated Set/DerivedData/Animated Set/Index.noindex/PrecompiledHeaders",
+      "indexRegularBuildIntermediatesPath" : "/Users/nicholasdalba/Developer/Animated Set/DerivedData/Animated Set/Build/Intermediates.noindex",
+      "indexRegularBuildProductsPath" : "/Users/nicholasdalba/Developer/Animated Set/DerivedData/Animated Set/Build/Products",
+      "pchPath" : "/Users/nicholasdalba/Developer/Animated Set/DerivedData/Animated Set/Index.noindex/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO",
+          "ENABLE_XOJIT_PREVIEWS" : "NO",
+          "ONLY_ACTIVE_ARCH" : "YES"
+        }
+      }
+    }
+  },
+  "qos" : "utility",
+  "schemeCommand" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

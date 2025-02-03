@@ -14,10 +14,22 @@ import func SwiftUI.__designTimeBoolean
 import SwiftUI
 
 struct SetGameView: View {
+    init(viewModel: SetGameViewModel) {
+        self.viewModel = viewModel
+        self.cardsInDeck = viewModel.deck
+        self.cardsInField = viewModel.cards
+        self.cardsInDiscardPile = []
+    }
+    
     @ObservedObject var viewModel: SetGameViewModel
+    @State private var cardsInDeck: [Card]
+    @State private var cardsInField: [Card]
+    @State private var cardsInDiscardPile: [Card]
     
     @Namespace private var cardDealingNamespace
     @Namespace private var cardRemovalNamespace
+    
+    private var rotationAnimation = Animation.linear(duration: 3)
     
     var body: some View {
         cards
@@ -25,23 +37,29 @@ struct SetGameView: View {
     }
     
     var cards: some View {
-        AspectVGrid(viewModel.cards, aspectRatio: Constants.aspectRatio, minimumGridItemWidth: Constants.minimumGridItemWidth) { card in
+        AspectVGrid(cardsInField, aspectRatio: Constants.aspectRatio, minimumGridItemWidth: Constants.minimumGridItemWidth) { card in
             mainGridItemCardView(card)
         }
         .padding()
+        .onChange(of: viewModel.cards) {
+            withAnimation(rotationAnimation) {
+                cardsInField = viewModel.cards
+                cardsInDeck = viewModel.deck
+            }
+        }
     }
     
     @ViewBuilder
     func mainGridItemCardView(_ card: Card) -> some View {
         let selectionState = viewModel.selectionState(card)
-        CardView(card: card, isFaceUp: __designTimeBoolean("#5636_0", fallback: true), selectionState: selectionState)
+        CardView(card: card, isFaceUp: __designTimeBoolean("#5978_0", fallback: true), selectionState: selectionState)
             .padding(Constants.cardPadding)
-            .transition(AnyTransition.flip(isFaceUp: __designTimeBoolean("#5636_1", fallback: true)))
+            .transition(AnyTransition.flip(isFaceUp: __designTimeBoolean("#5978_1", fallback: true)))
             .matchedGeometryEffect(id: card.id, in: cardDealingNamespace)
             .transition(AnyTransition.asymmetric(insertion: .identity, removal: .identity))
             .matchedGeometryEffect(id: card.id, in: cardRemovalNamespace)
             .onTapGesture {
-                withAnimation(.easeInOut(duration: __designTimeInteger("#5636_2", fallback: 1))) {
+                withAnimation(.easeInOut(duration: __designTimeInteger("#5978_2", fallback: 1))) {
                     viewModel.choose(card)
                 }
             }
@@ -67,16 +85,16 @@ struct SetGameView: View {
     }
     
     var invisibleDiscardPile: some View {
-        CardView(card: Card(id: __designTimeInteger("#5636_3", fallback: 0b11011111)), isFaceUp: __designTimeBoolean("#5636_4", fallback: false))
+        CardView(card: Card(id: __designTimeInteger("#5978_3", fallback: 0b11011111)), isFaceUp: __designTimeBoolean("#5978_4", fallback: false))
             .aspectRatio(Constants.aspectRatio, contentMode: .fit)
             .frame(height: Constants.deckHeight)
-            .opacity(__designTimeFloat("#5636_5", fallback: 0.0))
+            .opacity(__designTimeFloat("#5978_5", fallback: 0.0))
     }
     
     var discardPile: some View {
         ZStack {
-            ForEach(viewModel.discardPile) { card in
-                CardView(card: card, isFaceUp: __designTimeBoolean("#5636_6", fallback: true))
+            ForEach(cardsInDiscardPile) { card in
+                CardView(card: card, isFaceUp: __designTimeBoolean("#5978_6", fallback: true))
                     .aspectRatio(Constants.aspectRatio, contentMode: .fit)
                     .frame(height: Constants.deckHeight)
                     .transition(AnyTransition.asymmetric(insertion: .identity, removal: .identity))
@@ -86,8 +104,8 @@ struct SetGameView: View {
     }
     
     var newGameButton: some View {
-        bottomButton(__designTimeString("#5636_7", fallback: "New Game")) {
-            withAnimation(.linear(duration: __designTimeInteger("#5636_8", fallback: 3))) {
+        bottomButton(__designTimeString("#5978_7", fallback: "New Game")) {
+            withAnimation(rotationAnimation) {
                 viewModel.startNewGame()
             }
         }
@@ -95,15 +113,15 @@ struct SetGameView: View {
     
     var deck: some View {
         ZStack {
-            ForEach(viewModel.deck) { card in
-                CardView(card: card, isFaceUp: __designTimeBoolean("#5636_9", fallback: false))
+            ForEach(cardsInDeck) { card in
+                CardView(card: card, isFaceUp: __designTimeBoolean("#5978_8", fallback: false))
                     .aspectRatio(Constants.aspectRatio, contentMode: .fit)
                     .frame(height: Constants.deckHeight)
-                    .transition(AnyTransition.flip(isFaceUp: __designTimeBoolean("#5636_10", fallback: false)))
+                    .transition(AnyTransition.flip(isFaceUp: __designTimeBoolean("#5978_9", fallback: false)))
                     .matchedGeometryEffect(id: card.id, in: cardDealingNamespace)
             }
         }.onTapGesture {
-            withAnimation(.linear(duration: __designTimeInteger("#5636_11", fallback: 5))) {
+            withAnimation(.linear(duration: __designTimeInteger("#5978_10", fallback: 5))) {
                 viewModel.dealMoreCards()
             }
         }
@@ -129,12 +147,12 @@ extension AnyTransition {
     static func flip(isFaceUp: Bool) -> AnyTransition {
         AnyTransition.asymmetric(
             insertion: AnyTransition.modifier(
-                active: FlipModifier(isFaceUp: isFaceUp, rotation: isFaceUp ? __designTimeInteger("#5636_12", fallback: 0) : __designTimeInteger("#5636_13", fallback: 180)),
-                identity: FlipModifier(isFaceUp: isFaceUp, rotation: isFaceUp ? __designTimeInteger("#5636_14", fallback: 180) : __designTimeInteger("#5636_15", fallback: 0))
+                active: FlipModifier(isFaceUp: isFaceUp, rotation: isFaceUp ? __designTimeInteger("#5978_11", fallback: 0) : __designTimeInteger("#5978_12", fallback: 180)),
+                identity: FlipModifier(isFaceUp: isFaceUp, rotation: isFaceUp ? __designTimeInteger("#5978_13", fallback: 180) : __designTimeInteger("#5978_14", fallback: 0))
             ),
             removal: AnyTransition.modifier(
-                active: FlipModifier(isFaceUp: isFaceUp, rotation: isFaceUp ? __designTimeInteger("#5636_16", fallback: 0) : __designTimeInteger("#5636_17", fallback: 180)),
-                identity: FlipModifier(isFaceUp: isFaceUp, rotation: isFaceUp ? __designTimeInteger("#5636_18", fallback: 180) : __designTimeInteger("#5636_19", fallback: 0))
+                active: FlipModifier(isFaceUp: isFaceUp, rotation: isFaceUp ? __designTimeInteger("#5978_15", fallback: 0) : __designTimeInteger("#5978_16", fallback: 180)),
+                identity: FlipModifier(isFaceUp: isFaceUp, rotation: isFaceUp ? __designTimeInteger("#5978_17", fallback: 180) : __designTimeInteger("#5978_18", fallback: 0))
             )
         )
     }
@@ -152,13 +170,12 @@ struct FlipModifier: ViewModifier, Animatable {
     
     func body(content: Content) -> some View {
         let showBody = shouldShowBody
-        content.opacity(showBody ? __designTimeInteger("#5636_20", fallback: 0) : __designTimeInteger("#5636_21", fallback: 1))
-            .rotation3DEffect(.degrees(rotation), axis: (x: __designTimeInteger("#5636_22", fallback: 0), y: __designTimeInteger("#5636_23", fallback: 1), z: __designTimeInteger("#5636_24", fallback: 0)))
+        content.opacity(showBody ? __designTimeInteger("#5978_19", fallback: 1) : __designTimeInteger("#5978_20", fallback: 0))
+            .rotation3DEffect(.degrees(rotation), axis: (x: __designTimeInteger("#5978_21", fallback: 0), y: __designTimeInteger("#5978_22", fallback: 1), z: __designTimeInteger("#5978_23", fallback: 0)), perspective: __designTimeInteger("#5978_24", fallback: 0))
     }
     
     var shouldShowBody: Bool {
-        print("isFaceUp: \(isFaceUp), rotation: \(rotation)")
-        return isFaceUp ? (rotation > __designTimeInteger("#5636_25", fallback: 90)) : (rotation < __designTimeInteger("#5636_26", fallback: 90))
+        isFaceUp ? (rotation > __designTimeInteger("#5978_25", fallback: 90)) : (rotation < __designTimeInteger("#5978_26", fallback: 90))
     }
 }
 

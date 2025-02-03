@@ -44,8 +44,8 @@ struct CardView: View {
     
     var faceUpCard: some View {
         VStack {
-            ForEach(__designTimeInteger("#6125_0", fallback: 0)..<shapeCount, id: \.self) { index in
-                shapeWithColor.aspectRatio(__designTimeFloat("#6125_1", fallback: 2.0), contentMode: .fit)
+            ForEach(__designTimeInteger("#23473_0", fallback: 0)..<shapeCount, id: \.self) { index in
+                shapeWithColor.aspectRatio(__designTimeFloat("#23473_1", fallback: 2.0), contentMode: .fit)
             }
         }.padding(Constants.shapePadding)
     }
@@ -62,7 +62,7 @@ struct CardView: View {
         if features.third == .first {
             shape.stroke(color, lineWidth: Constants.strokeWidth)
         } else {
-            let opacity = features.third == .second ? __designTimeFloat("#6125_2", fallback: 0.5) : __designTimeFloat("#6125_3", fallback: 1.0)
+            let opacity = features.third == .second ? __designTimeFloat("#23473_2", fallback: 0.5) : __designTimeFloat("#23473_3", fallback: 1.0)
             shape.fill(color.opacity(opacity))
         }
     }
@@ -72,7 +72,7 @@ struct CardView: View {
     }
     
     private func color(ofTrilean trilean: Trilean) -> Color {
-        [Color.red, Color.green, Color.blue][Int(trilean.rawValue) - __designTimeInteger("#6125_4", fallback: 1)]
+        [Color.red, Color.green, Color.blue][Int(trilean.rawValue) - __designTimeInteger("#23473_4", fallback: 1)]
     }
     
     private func count(ofTrilean trilean: Trilean) -> Int {
@@ -80,7 +80,7 @@ struct CardView: View {
     }
     
     private func opacity(ofTrilean trilean: Trilean) -> CGFloat {
-        [__designTimeFloat("#6125_5", fallback: 1.0), __designTimeFloat("#6125_6", fallback: 0.5), __designTimeFloat("#6125_7", fallback: 1.0)][Int(trilean.rawValue) - __designTimeInteger("#6125_8", fallback: 1)]
+        [__designTimeFloat("#23473_5", fallback: 1.0), __designTimeFloat("#23473_6", fallback: 0.5), __designTimeFloat("#23473_7", fallback: 1.0)][Int(trilean.rawValue) - __designTimeInteger("#23473_8", fallback: 1)]
     }
     
     private func shape(ofTrilean trilean: Trilean) -> some Shape {
@@ -113,8 +113,8 @@ private struct AnyShape: Shape {
 #Preview {
     let selectionState = CardSelectionState.matched
     
-    CardView(card: Card(id: __designTimeInteger("#6125_9", fallback: 0b11011111)), isFaceUp: __designTimeBoolean("#6125_10", fallback: false), selectionState: selectionState)
-        .aspectRatio(CGFloat(__designTimeFloat("#6125_11", fallback: 2.5))/__designTimeFloat("#6125_12", fallback: 3.5), contentMode: .fit)
+    CardView(card: Card(id: __designTimeInteger("#23473_9", fallback: 0b11011111)), isFaceUp: __designTimeBoolean("#23473_10", fallback: false), selectionState: selectionState)
+        .aspectRatio(CGFloat(__designTimeFloat("#23473_11", fallback: 2.5))/__designTimeFloat("#23473_12", fallback: 3.5), contentMode: .fit)
         .padding()
         // .background(fillColor)
 }
